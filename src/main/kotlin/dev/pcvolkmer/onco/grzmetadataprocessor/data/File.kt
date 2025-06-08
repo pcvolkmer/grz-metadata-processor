@@ -20,16 +20,6 @@ data class File(
     var fileChecksum: String? = null,
     var fileSizeInBytes: Long? = null,
 ) {
-    init {
-        if (fileChecksum.isNullOrBlank()) {
-            fileChecksum = calcFileChecksum()
-        }
-
-        if (fileSizeInBytes?.or(0)!! < 1) {
-            fileSizeInBytes = calcFileSize()
-        }
-    }
-
     fun calcFileChecksum(): String {
         if (filePath == null) {
             return ""
