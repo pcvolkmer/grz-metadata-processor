@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: grz-metadata-processor
+  flyway:
+    locations: "classpath:db/migrations/{vendor}"

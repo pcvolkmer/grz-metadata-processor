@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+</head>
+<body>
+
+    <aside th:hx-get="@{/cases/menu}" hx-trigger="load"></aside>
+
+    <main>
+        <div id="cases" th:hx-get="@{/cases}" hx-trigger="load"></div>
+    </main>
+
+    <script th:src="@{/main.js}"></script>
+</body>
+</html>

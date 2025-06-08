@@ -1,0 +1,25 @@
+<div class="title">GRZ-Metadaten</div>
+
+<nav>
+    <ul>
+        <li>
+            <a th:href="@{/}">
+                <span>Fallübersicht</span>
+                <span class="counter">[[ ${cases} ]]</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/}">
+                <span>Ungenutzte Proben</span>
+                <span th:if="${unusedLabData > 0}" class="counter">[[ ${unusedLabData} ]]</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/files/unused}">
+                <span>Ungenutzte Dateien</span>
+                <span th:if="${unusedFiles}" class="counter">[[ ${unusedFiles} ]]</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:id="'cases_' + ${caseId} + '_donors'">
+
+        <div th:if="${donors.isEmpty()}">
+            <h2>Probenspender</h2>
+            <form class="donor" th:hx-post="@{/cases/{caseId}/donors(caseId=${caseId})}" th:hx-target="'#cases_' + ${caseId} + '_donors'">
+                <div>Keine Probenspender gefunden</div>
+                <button>Neuen Probenspender hinzufügen</button>
+            </form>
+        </div>
+
+        <!-- Probenspender -->
+        <div th:each="donor : ${donors}">
+            <h2>Probenspender</h2>
+
+            <form class="donor" th:id="'cases_' + ${caseId} + '_donors'">
+                <input type="hidden" name="id" th:value="${donor.id}">
+
+                <div>
+                    <label>
+                        Spender-Pseudonym
+                        <input type="text" name="donorPseudonym" th:value="${donor.donorPseudonym}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Gender
+                        <select name="gender">
+                            <option th:selected="${donor.gender != null and donor.gender.value == 'male'}" value="MALE">male</option>
+                            <option th:selected="${donor.gender != null and donor.gender.value == 'female'}" value="FEMALE">female</option>
+                            <option th:selected="${donor.gender != null and donor.gender.value == 'other'}" value="OTHER">other</option>
+                            <option th:selected="${donor.gender != null and donor.gender.value == 'unknown'}" value="UNKNOWN">unknown</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Verwandschaft
+                        <select name="relation">
+                            <option th:selected="${donor.relation != null and donor.relation.value == 'mother'}" value="MOTHER">mother</option>
+                            <option th:selected="${donor.relation != null and donor.relation.value == 'father'}" value="FATHER">father</option>
+                            <option th:selected="${donor.relation != null and donor.relation.value == 'brother'}" value="BROTHER">brother</option>
+                            <option th:selected="${donor.relation != null and donor.relation.value == 'sister'}" value="SISTER">sister</option>
+                            <option th:selected="${donor.relation != null and donor.relation.value == 'child'}" value="CHILD">child</option>
+                            <option th:selected="${donor.relation != null and donor.relation.value == 'index'}" value="INDEX">index</option>
+                            <option th:selected="${donor.relation != null and donor.relation.value == 'other'}" value="OTHER">other</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <button class="save" th:hx-put="@{/cases/{caseId}/donors/{donorId}(caseId=${caseId},donorId=${donor.id})}" th:hx-target="'#cases_' + ${caseId} + '_donors'">Änderungen übernehmen</button>
+                    <button class="new" th:hx-post="@{/cases/{caseId}/donors(caseId=${caseId})}" th:hx-target="'#cases_' + ${caseId} + '_donors'">Neu</button>
+                    <button class="delete" th:hx-delete="@{/cases/{caseId}/donors/{donorId}(caseId=${caseId},donorId=${donor.id})}" th:hx-target="'#cases_' + ${caseId} + '_donors'">Löschen</button>
+                </div>
+
+                <div th:hx-get="@{/donors/{donorId}/labdatas(donorId=${donor.id})}" hx-trigger="load"></div>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

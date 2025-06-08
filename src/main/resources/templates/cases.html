@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <h1>
+            [[ ${cases.size()} ]] Fälle
+        </h1>
+        <form class="case">
+            <ul class="case-list">
+                <li th:each="case : ${cases}">
+                    <a th:href="@{/cases/{caseId}(caseId=${case.id})}">#[[ ${case.id} ]] - Fallnummer: [[ ${case.localCaseId} ]]</a>
+                    <button class="delete left" th:hx-delete="@{/cases/{caseId}(caseId=${case.id})}" hx-target="#cases">Eintrag löschen</button>
+                </li>
+            </ul>
+            <button class="new" th:hx-post="@{/cases}">Neuen Fall anlegen</button>
+        </form>
+    </div>
+</body>
+</html>

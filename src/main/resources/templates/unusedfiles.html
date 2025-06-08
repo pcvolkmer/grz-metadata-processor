@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <base href="@{/}">
+</head>
+<body>
+<div>
+    <aside th:hx-get="@{/cases/menu}" hx-trigger="load"></aside>
+
+    <main>
+        <div id="unused_files">
+
+            <div th:if="${files.isEmpty()}">
+                <h4>Datei</h4>
+                <form class="file">
+                    <div>Keine ungenutzte Datei gefunden</div>
+                </form>
+            </div>
+
+            <div th:each="file : ${files}">
+                <!-- File -->
+                <h4>Datei</h4>
+                <form class="file">
+                    <input type="hidden" name="id" th:value="${file.id}" />
+
+                    <div>
+                        <label>
+                            Datei
+                            <input type="text" name="filePath" th:value="${file.filePath}" />
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="optional">
+                            Zugehörige Probe (Einsendenummer)
+                            <select name="labDataId">
+                                <option>Keine Zuordnung</option>
+                                <option th:each="labData : ${labDatas}" th:selected="${file.labDataId == labData.id}" th:value="${labData.id}" th:text="${labData.einsendenummer}"></option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            Dateityp
+                            <select name="fileType">
+                                <option th:selected="${file.fileType.value == 'bam'}">BAM</option>
+                                <option th:selected="${file.fileType.value == 'vcf'}">Vcf</option>
+                                <option th:selected="${file.fileType.value == 'bed'}">BED</option>
+                                <option th:selected="${file.fileType.value == 'fastq'}">FASTQ</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            Prüfsumme - SHA256
+                            <input type="text" pattern="[A-Fa-f0-9]{64}" name="fileChecksum" th:value="${file.fileChecksum} " />
+                        </label>
+                    </div>
+
+                    <div>
+                        <label>
+                            Dateigröße in Bytes
+                            <input type="number" min="0" name="fileSizeInBytes" th:value="${file.fileSizeInBytes} " />
+                        </label>
+                    </div>
+
+                    <div>
+                        <button class="save" th:hx-put="@{/files/unused/{fileId}(fileId=${file.id})}" hx-target="body">Änderungen übernehmen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script th:src="@{/main.js}"></script>
+</body>
+</html>

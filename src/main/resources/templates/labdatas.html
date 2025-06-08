@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div th:id="'donors_' + ${donorId} + '_labdatas'">
+        <div th:if="${labdatas.isEmpty()}">
+            <h3>Probe</h3>
+            <form class="lab-data" th:hx-post="@{/donors/{donorId}/labdatas(donorId=${donorId})}" th:hx-target="'#donors_' + ${donorId} + '_labdatas'">
+                <div>Keine Probe gefunden</div>
+                <button>Neuen Probe hinzufügen</button>
+            </form>
+        </div>
+
+        <div th:each="labdata : ${labdatas}">
+            <h3>Probe/Sequenzierung</h3>
+
+            <form class="lab-data">
+                <input type="hidden" name="id" th:value="${labdata.id}" />
+
+                <div>
+                    <label class="optional">
+                        Einsendenummer (Optionale Angabe)
+                        <input type="text" name="einsendenummer" th:value="${labdata.einsendenummer}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        LabData Name
+                        <input type="text" name="labDataName" th:value="${labdata.labDataName}"/>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Datum der Probe
+                        <input type="date" name="sampleDate" th:value="${labdata.sampleDate}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Konservierung der Probe
+                        <select name="sampleConservation">
+                            <option th:selected="${labdata.sampleConservation != null and labdata.sampleConservation.value == 'FRESH_TISSUE'}" value="FRESH_TISSUE">fresh-tissue</option>
+                            <option th:selected="${labdata.sampleConservation != null and labdata.sampleConservation.value == 'CRYO_FROZEN'}" value="CRYO_FROZEN">cryo-frozen</option>
+                            <option th:selected="${labdata.sampleConservation != null and labdata.sampleConservation.value == 'FFPE'}" value="FFPE">ffpe</option>
+                            <option th:selected="${labdata.sampleConservation != null and labdata.sampleConservation.value == 'OTHER'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.sampleConservation != null and labdata.sampleConservation.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Sequenzierungsart
+                        <select name="sequenceType">
+                            <option th:selected="${labdata.sequenceType != null and labdata.sequenceType.value == 'DNA'}" value="DNA">dna</option>
+                            <option th:selected="${labdata.sequenceType != null and labdata.sequenceType.value == 'RNA'}" value="RNA">rna</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Sequenzierungsunterart
+                        <select name="sequenceSubtype">
+                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'GERMLINE'}" value="GERMLINE">germline</option>
+                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'SOMATIC'}" value="SOMATIC">somatic</option>
+                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'OTHER'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Fragmentierungsart
+                        <select name="fragmentationMethod">
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'SONICATION'}" value="SONICATION">sonication</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'ENZYMATIC'}" value="ENZYMATIC">enzymatic</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'NONE'}" value="NONE">none</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'OTHER'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Library Type
+                        <select name="libraryType">
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'PANEL'}" value="PANEL">panel</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'PANEL_LR'}" value="PANEL_LR">panel_lr</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WES'}" value="WES">wes</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WES_LR'}" value="WES_LR">wes_lr</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WGS'}" value="WGS">wgs</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WGS_LR'}" value="WGS_LR">wgs_lr</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WXS'}" value="WXS">wxs</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WXS_LR'}" value="WXS_LR">wxs_lr</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'OTHER'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Preparation Kit - Name
+                        <input type="text" name="libraryPrepKit" th:value="${labdata.libraryPrepKit}" />
+                    </label>
+
+                    <label>
+                        Hersteller
+                        <input type="text" name="libraryPrepKitManufacturer" th:value="${labdata.libraryPrepKitManufacturer}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Sequencer - Modell
+                        <input type="text" name="sequencerModel" th:value="${labdata.sequencerModel}" />
+                    </label>
+
+                    <label>
+                        Hersteller
+                        <input type="text" name="sequencerManufacturer" th:value="${labdata.sequencerManufacturer}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Kit - Name/Version
+                        <input type="text" name="kitName" th:value="${labdata.kitName}" />
+                    </label>
+
+                    <label>
+                        Hersteller
+                        <input type="text" name="kitManufacturer" th:value="${labdata.kitManufacturer}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Enrichment Kit - Name und Version
+                        <input type="text" name="enrichmentKit" th:value="${labdata.enrichmentKit}" />
+                    </label>
+
+                    <label>
+                        Hersteller
+                        <select name="enrichmentKitManufacturer">
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'ILLUMINA'}" value="ILLUMINA">Illumina</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'AGILENT'}" value="AGILENT">Agilent</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'TIST'}" value="TIST">Twist</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'NEB'}" value="NEB">NEB</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'OTHER'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'NONE'}" value="NONE">none</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Sequencing Layout
+                        <select name="sequencingLayout">
+                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'SINGLE_END'}" value="SINGLE_END">single-end</option>
+                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'PAIRED_END'}" value="PAIRED_END">paired-end</option>
+                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'REVERSE'}" value="REVERSE">reverse</option>
+                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'OTHER'}" value="OTHER">other</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Tumorzellgehalt in %
+                        <input type="number" name="tumorCellCount" th:value="${labdata.tumorCellCount}" />
+                    </label>
+
+                    <label>
+                        Methode
+                        <select name="tumorCellCountMethod">
+                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'PATHOLOGY'}" value="PATHOLOGY">pathology</option>
+                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'BIOINFORMATICS'}" value="BIOINFORMATICS">bioinformatics</option>
+                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'OTHER'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Bioinformatik-Pipeline
+                        <input type="text" name="bioinformaticsPipelineName" th:value="${labdata.bioinformaticsPipelineName}" />
+                    </label>
+
+                    <label>
+                        Version
+                        <input type="text" name="bioinformaticsPipelineVersion" th:value="${labdata.bioinformaticsPipelineVersion}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Referenz-Genom
+                        <select name="referenceGenome">
+                            <option th:selected="${labdata.referenceGenome != null and labdata.referenceGenome.value == 'GRCH37'}" value="GRCH37">GRCh37</option>
+                            <option th:selected="${labdata.referenceGenome != null and labdata.referenceGenome.value == 'GRCH38'}" value="GRCH38">GRCh38</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <button class="save" th:hx-put="@{/donors/{donorId}/labdatas/{labdataId}(donorId=${donorId},labdataId=${labdata.id})}" th:hx-target="'#donors_' + ${donorId} + '_labdatas'">Änderungen übernehmen</button>
+                    <button class="new" th:hx-post="@{/donors/{donorId}/labdatas(donorId=${donorId})}" th:hx-target="'#donors_' + ${donorId} + '_labdatas'">Neu</button>
+                    <button class="delete" th:hx-delete="@{/donors/{donorId}/labdatas/{labdataId}(donorId=${donorId},labdataId=${labdata.id})}" th:hx-target="'#donors_' + ${donorId} + '_labdatas'">Löschen</button>
+                </div>
+
+                <div th:hx-get="@{/labdatas/{labdataId}/files(labdataId=${labdata.id})}" hx-trigger="load"></div>
+
+            </form>
+        </div>
+
+    </div>
+
+</body>
+</html>

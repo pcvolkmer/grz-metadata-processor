@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div th:id="'labdatas_' + ${labDataId} + '_files'">
+        <div th:if="${files.isEmpty()}">
+            <h4>Datei</h4>
+            <form class="file" th:hx-post="@{/labdatas/{labDataId}/files(labDataId=${labDataId})}" th:hx-target="'#labdatas_' + ${labDataId} + '_files'">
+                <div>Keine Datei gefunden</div>
+                <button>Neuen Datei hinzufügen</button>
+            </form>
+        </div>
+
+        <div th:each="file : ${files}">
+            <!-- File -->
+            <h4>Datei</h4>
+            <form class="file">
+                <input type="hidden" name="id" th:value="${file.id}" />
+
+                <div>
+                    <label>
+                        Datei
+                        <input type="text" name="filePath" th:value="${file.filePath}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Dateityp
+                        <select name="fileType">
+                            <option th:selected="${file.fileType != null and file.fileType.value == 'bam'}">BAM</option>
+                            <option th:selected="${file.fileType != null and file.fileType.value == 'vcf'}">Vcf</option>
+                            <option th:selected="${file.fileType != null and file.fileType.value == 'bed'}">BED</option>
+                            <option th:selected="${file.fileType != null and file.fileType.value == 'fastq'}">FASTQ</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Prüfsumme - SHA256
+                        <input type="text" pattern="[A-Fa-f0-9]{64}" name="fileChecksum" th:value="${file.fileChecksum} " />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Dateigröße in Bytes
+                        <input type="number" min="0" name="fileSizeInBytes" th:value="${file.fileSizeInBytes} " />
+                    </label>
+                </div>
+
+                <div>
+                    <button class="save" th:hx-put="@{/labdatas/{labDataId}/files/{fileId}(labDataId=${labDataId},fileId=${file.id})}" th:hx-target="'#labdatas_' + ${labDataId} + '_files'">Änderungen übernehmen</button>
+                    <button class="new" th:hx-post="@{/labdatas/{labDataId}/files(labDataId=${labDataId})}" th:hx-target="'#labdatas_' + ${labDataId} + '_files'">Neu</button>
+                    <button class="delete" th:hx-delete="@{/labdatas/{labDataId}/files/{fileId}(labDataId=${labDataId},fileId=${file.id})}" th:hx-target="'#labdatas_' + ${labDataId} + '_files'">Löschen</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+    <script th:src="@{/main.js}"></script>
+</body>
+</html>

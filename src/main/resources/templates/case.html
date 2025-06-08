@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
+    <base href="@{/}">
+</head>
+<body>
+    <aside th:hx-get="@{/cases/menu}" hx-trigger="load"></aside>
+
+    <main>
+        <div>
+            <h1>Fall <tt th:text="${case.localCaseId}"></tt></h1>
+
+            <form class="case">
+                <input type="hidden" name="id" th:value="${case.id}" />
+
+                <div>
+                    <label>
+                        Lokale Fall-ID
+                        <input type="text" name="localCaseId" th:value="${case.localCaseId}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Versicherungsart
+                        <select name="coverageType" th:field="${case.coverageType}">
+                            <option th:value="'GKV'">GKV</option>
+                            <option th:value="'PKV'">PKV</option>
+                            <option th:value="'BG'">BG</option>
+                            <option th:value="'SEL'">SEL</option>
+                            <option th:value="'SOZ'">SOZ</option>
+                            <option th:value="'GPV'">GPV</option>
+                            <option th:value="'PPV'">PPV</option>
+                            <option th:value="'BEI'">BEI</option>
+                            <option th:value="'SKT'">SKT</option>
+                            <option th:value="'UNK'">UNK</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Submitter-ID
+                        <input type="text" name="submitterId" th:value="${case.submitterId}" pattern="[0-9]{9}" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        GRZ-ID
+                        <input type="text" name="genomicDataCenterId" th:value="${case.genomicDataCenterId}" pattern="^(GRZ)[A-Z0-9]{3}[0-9]{3}$" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        KDK-ID
+                        <input type="text" name="clinicalDataCenterId" th:value="${case.clinicalDataCenterId}" pattern="^(GRZ)[A-Z0-9]{3}[0-9]{3}$" />
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Erkrankungsart
+                        <select name="diseaseType" th:field="${case.diseaseType}">
+                            <option th:value="ONCOLOGICAL">oncological</option>
+                            <option th:value="RARE">rare</option>
+                            <option th:value="HEREDITARY">hereditary</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Genomische Studienart
+                        <select name="genomicStudyType" th:field="${case.genomicStudyType}">
+                            <option th:value="SINGLE">single</option>
+                            <option th:value="DUO">duo</option>
+                            <option th:value="TRIO">trio</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Genomische Unterstudienart
+                        <select name="genomicStudySubtype" th:field="${case.genomicStudySubtype}">
+                            <option th:value="TUMOR_ONLY">tumor-only</option>
+                            <option th:value="TUMOR_GERMLINE">tumor+germline</option>
+                            <option th:value="GERMLINE_ONLY">germline-only</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div>
+                    <label>
+                        Laborname
+                        <input name="labName" th:value="${case.labName}" type="text" />
+                    </label>
+                </div>
+
+                <div>
+                    <button class="save" th:hx-put="@{/cases/{caseId}(caseId=${case.id})}" hx-target="body">Änderungen übernehmen</button>
+                    <button class="new" th:hx-post="@{/cases}">Neu</button>
+                    <button class="delete" th:hx-delete="@{/cases/{caseId}(caseId=${case.id})}">Löschen</button>
+                </div>
+
+                <div th:hx-get="@{/cases/{caseId}/donors(caseId=${case.id})}" hx-trigger="load"></div>
+            </form>
+        </div>
+    </main>
+
+    <script th:src="@{/main.js}"></script>
+</body>
+</html>

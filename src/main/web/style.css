@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+body {
+    @apply bg-white dark:bg-gray-950 flex flex-col h-screen;
+}
+
+aside {
+    @apply fixed top-0 left-0 z-40 w-80 p-5 h-screen bg-gray-100 text-gray-600
+}
+
+aside > .title {
+    @apply m-2 text-2xl font-bold
+}
+
+aside > nav {
+    @apply mt-2
+}
+
+aside > nav ul {
+    @apply m-2
+}
+
+aside > nav a:before {
+    content: '🗎';
+    margin-right: 4px;
+    opacity: 0.8;
+    width: 1.2em;
+    text-align: center;
+}
+
+aside > nav a:hover:before {
+    opacity: 1;
+}
+
+aside > nav a:hover {
+    @apply text-gray-900 bg-gray-300
+}
+
+aside > nav a {
+    @apply flex p-1 rounded-sm
+}
+
+aside > nav a > span {
+    @apply nth-[1]:flex-1
+}
+
+aside > nav a .counter {
+    @apply inline-flex items-center justify-center min-w-3 h-3 p-3 font-bold text-xs text-white bg-gray-500 rounded-full
+}
+
+main {
+    @apply mx-auto pl-84 px-10 py-1 w-full;
+}
+
+h1, h2, h3, h4 {
+    @apply mt-5 text-white py-1 px-3 rounded-t-sm
+}
+
+h1 {
+    @apply text-3xl font-bold bg-blue-900
+}
+
+h2 {
+    @apply text-2xl font-bold bg-green-900
+}
+
+h3 {
+    @apply text-xl font-bold bg-yellow-900
+}
+
+h4 {
+    @apply font-bold bg-red-900
+}
+
+form {
+    @apply p-2 rounded-b-sm
+}
+
+label {
+    @apply mr-4 w-1/2 text-sm
+}
+
+input,
+select {
+    @apply text-base w-full text-black
+}
+
+label.optional {
+    @apply italic
+}
+label.optional input,
+label.optional select {
+    font-style: normal;
+    background: repeating-linear-gradient(135deg, var(--color-white), var(--color-white) 4px, transparent 4px, transparent 8px)
+}
+
+input[type=text],
+input[type=date],
+input[type=number],
+select {
+    @apply block font-mono border-b-2 border-b-gray-300 bg-gray-50 focus:outline-none focus:border-gray-600 focus:bg-gray-200 h-8 p-1
+}
+
+input[type=submit],
+input[type=reset],
+button {
+    @apply cursor-pointer bg-gray-700 text-white rounded-sm px-6 py-2 mx-auto my-2 w-fit transition-colors
+}
+
+input[type=submit]:hover,
+input[type=reset]:hover,
+button:hover {
+    @apply bg-gray-900
+}
+
+div:has(> label) {
+    @apply my-2 flex
+}
+
+.case {
+    @apply border-l-4 border-l-blue-900 bg-blue-100
+}
+
+.case input[type=text],
+.case input[type=date],
+.case input[type=number],
+.case select {
+    @apply focus:border-blue-600 focus:bg-blue-200
+}
+
+.donor {
+    @apply border-l-4 border-l-green-900 bg-green-100
+}
+
+.donor input[type=text],
+.donor input[type=date],
+.donor input[type=number],
+.donor select {
+    @apply focus:border-green-600 focus:bg-green-200
+}
+
+.lab-data {
+    @apply border-l-4 border-l-yellow-900 bg-yellow-100
+}
+
+.lab-data input[type=text],
+.lab-data input[type=date],
+.lab-data input[type=number],
+.lab-data select {
+    @apply focus:border-yellow-600 focus:bg-yellow-200
+}
+
+.file {
+    @apply border-l-4 border-l-red-900 bg-red-100
+}
+
+.file input[type=text],
+.file input[type=date],
+.file input[type=number],
+.file select {
+    @apply focus:border-red-600 focus:bg-red-200
+}
+
+button {
+    @apply text-base font-normal
+}
+
+button.left {
+    @apply m-0 py-0 px-1 mx-1 float-right text-base font-normal
+}
+button.new:before {
+    content: '➕';
+    margin-right: .5em;
+}
+button.delete:before {
+    content: '🗑';
+    margin-right: .5em;
+}
+button.save:before {
+    content: '💾';
+    margin-right: .5em;
+}
+
+.case-list > li {
+    @apply my-2 p-1 odd:bg-blue-200
+}
+
+.case-list > li > a {
+    @apply w-full
+}
