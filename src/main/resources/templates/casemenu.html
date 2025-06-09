@@ -18,7 +18,7 @@
         <li>
             <a th:href="@{/files/unused}">
                 <span>Ungenutzte Dateien</span>
-                <span th:if="${unusedFiles}" class="counter">[[ ${unusedFiles} ]]</span>
+                <span th:if="${unusedFiles > 0}" class="counter">[[ ${unusedFiles} ]]</span>
             </a>
         </li>
     </ul>
@@ -27,6 +27,7 @@
         <li>
             <a th:href="@{/labdataprofiles}">
                 <span>Sequenzierprofile</span>
+                <span th:if="${labDataProfiles > 0}" class="counter">[[ ${labDataProfiles} ]]</span>
             </a>
         </li>
     </ul>
