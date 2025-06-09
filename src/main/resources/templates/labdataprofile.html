@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div>
+        <label class="disabled">
+            Library Type
+            <select name="libraryType" disabled>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'panel'}" value="PANEL">panel</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'panel_lr'}" value="PANEL_LR">panel_lr</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'wes'}" value="WES">wes</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'wes_lr'}" value="WES_LR">wes_lr</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'wgs'}" value="WGS">wgs</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'wgs_lr'}" value="WGS_LR">wgs_lr</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'wxs'}" value="WXS">wxs</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'wxs_lr'}" value="WXS_LR">wxs_lr</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'other'}" value="OTHER">other</option>
+                <option th:selected="${profile.libraryType != null and profile.libraryType.value == 'unknown'}" value="UNKNOWN">unknown</option>
+            </select>
+        </label>
+    </div>
+
+    <div>
+        <label class="disabled">
+            Preparation Kit - Name
+            <input type="text" name="libraryPrepKit" th:value="${profile.libraryPrepKit}" disabled />
+        </label>
+
+        <label class="disabled">
+            Hersteller
+            <input type="text" name="libraryPrepKitManufacturer" th:value="${profile.libraryPrepKitManufacturer}" disabled />
+        </label>
+    </div>
+
+    <div>
+        <label class="disabled">
+            Sequencer - Modell
+            <input type="text" name="sequencerModel" th:value="${profile.sequencerModel}" disabled />
+        </label>
+
+        <label class="disabled">
+            Hersteller
+            <input type="text" name="sequencerManufacturer" th:value="${profile.sequencerManufacturer}" disabled />
+        </label>
+    </div>
+
+    <div>
+        <label class="disabled">
+            Kit - Name/Version
+            <input type="text" name="kitName" th:value="${profile.kitName}" disabled />
+        </label>
+
+        <label class="disabled">
+            Hersteller
+            <input type="text" name="kitManufacturer" th:value="${profile.kitManufacturer}" disabled />
+        </label>
+    </div>
+
+    <div>
+        <label class="disabled">
+            Enrichment Kit - Name und Version
+            <input type="text" name="enrichmentKit" th:value="${profile.enrichmentKit}" disabled />
+        </label>
+
+        <label class="disabled">
+            Hersteller
+            <select name="enrichmentKitManufacturer" disabled>
+                <option th:selected="${profile.enrichmentKitManufacturer != null and profile.enrichmentKitManufacturer.value == 'Illumuna'}" value="ILLUMINA">Illumina</option>
+                <option th:selected="${profile.enrichmentKitManufacturer != null and profile.enrichmentKitManufacturer.value == 'Agilent'}" value="AGILENT">Agilent</option>
+                <option th:selected="${profile.enrichmentKitManufacturer != null and profile.enrichmentKitManufacturer.value == 'Twist'}" value="TIST">Twist</option>
+                <option th:selected="${profile.enrichmentKitManufacturer != null and profile.enrichmentKitManufacturer.value == 'NEB'}" value="NEB">NEB</option>
+                <option th:selected="${profile.enrichmentKitManufacturer != null and profile.enrichmentKitManufacturer.value == 'other'}" value="OTHER">other</option>
+                <option th:selected="${profile.enrichmentKitManufacturer != null and profile.enrichmentKitManufacturer.value == 'unknown'}" value="UNKNOWN">unknown</option>
+                <option th:selected="${profile.enrichmentKitManufacturer != null and profile.enrichmentKitManufacturer.value == 'none'}" value="NONE">none</option>
+            </select>
+        </label>
+    </div>
+</body>
+</html>

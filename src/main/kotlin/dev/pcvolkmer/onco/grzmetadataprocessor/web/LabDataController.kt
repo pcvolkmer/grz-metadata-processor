@@ -18,7 +18,13 @@ class LabDataController(
     fun getAllLabData(@PathVariable donorId: Long, model: Model): String {
         model.addAttribute("labdatas", allLabDatasByDonorId(donorId))
         model.addAttribute("labdataprofiles", labDataProfileRepository.findAll())
-        return "labdatas"
+        return "labdatas/index"
+    }
+
+    @GetMapping(path = ["{labdataId}/kits"])
+    fun getLabDataKits(@PathVariable labdataId: Long, model: Model): String {
+        model.addAttribute("labdata", labDataRepository.getById(labdataId))
+        return "labdatas/kits"
     }
 
     @PostMapping
@@ -26,7 +32,7 @@ class LabDataController(
         labDataRepository.save(LabData(donorId = donorId))
         model.addAttribute("labdatas", allLabDatasByDonorId(donorId))
         model.addAttribute("labdataprofiles", labDataProfileRepository.findAll())
-        return "labdatas"
+        return "labdatas/index"
     }
 
     @PutMapping(path = ["{labdataId}"])
@@ -34,7 +40,7 @@ class LabDataController(
         labDataRepository.save(labData)
         model.addAttribute("labdatas", allLabDatasByDonorId(donorId))
         model.addAttribute("labdataprofiles", labDataProfileRepository.findAll())
-        return "labdatas"
+        return "labdatas/index"
     }
 
     @DeleteMapping(path = ["{labdataId}"])
@@ -42,7 +48,7 @@ class LabDataController(
         labDataRepository.deleteById(labdataId)
         model.addAttribute("labdatas", allLabDatasByDonorId(donorId))
         model.addAttribute("labdataprofiles", labDataProfileRepository.findAll())
-        return "labdatas"
+        return "labdatas/index"
     }
 
     private fun allLabDatasByDonorId(donorId: Long): List<LabData> {

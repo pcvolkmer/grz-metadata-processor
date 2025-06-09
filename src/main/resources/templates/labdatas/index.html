@@ -93,14 +93,18 @@
                 <div>
                     <label class="optional">
                         Sequenzierprofil (Optionale Angabe)
-                        <select name="profile">
-                            <option value="">Kein Sequenzierprofil</option>
-                            <option th:each="labdataprofile : ${labdataprofiles}" th:selected="${labdataprofile.id == labdata.profile}" th:value="${labdataprofile.id}" th:text="${labdataprofile.profileName}"></option>
+                        <select name="profile" th:hx-target="${'#labdata_' + labdata.id + '_sequencerprofile'}">
+                            <option value="" th:hx-get="@{/donors/{donorId}/labdatas/{labdataId}/kits(donorId=${donorId},labdataId=${labdata.id})}">Kein Sequenzierprofil</option>
+                            <option th:each="labdataprofile : ${labdataprofiles}"
+                                    th:selected="${labdataprofile.id == labdata.profile}"
+                                    th:hx-get="@{/labdataprofiles/{labdataprofileId}(labdataprofileId=${labdataprofile.id})}"
+                                    th:value="${labdataprofile.id}"
+                                    th:text="${labdataprofile.profileName}"></option>
                         </select>
                     </label>
                 </div>
 
-                <th:block th:if="${labdata.profileData == null}">
+                <div th:if="${labdata.profileData == null}" th:id="${'labdata_' + labdata.id + '_sequencerprofile'}">
                 <div>
                     <label>
                         Library Type
@@ -174,11 +178,11 @@
                         </select>
                     </label>
                 </div>
-                </th:block>
+                </div>
 
-                <th:block th:if="${labdata.profileData != null}">
+                <div th:if="${labdata.profileData != null}" th:id="${'labdata_' + labdata.id + '_sequencerprofile'}">
                     <div>
-                        <label class="optional">
+                        <label class="disabled">
                             Library Type
                             <select name="libraryType" disabled>
                                 <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'panel'}" value="PANEL">panel</option>
@@ -196,48 +200,48 @@
                     </div>
 
                     <div>
-                        <label class="optional">
+                        <label class="disabled">
                             Preparation Kit - Name
                             <input type="text" name="libraryPrepKit" th:value="${labdata.profileData.libraryPrepKit}" disabled/>
                         </label>
 
-                        <label class="optional">
+                        <label class="disabled">
                             Hersteller
                             <input type="text" name="libraryPrepKitManufacturer" th:value="${labdata.profileData.libraryPrepKitManufacturer}" disabled/>
                         </label>
                     </div>
 
                     <div>
-                        <label class="optional">
+                        <label class="disabled">
                             Sequencer - Modell
                             <input type="text" name="sequencerModel" th:value="${labdata.profileData.sequencerModel}" disabled/>
                         </label>
 
-                        <label class="optional">
+                        <label class="disabled">
                             Hersteller
                             <input type="text" name="sequencerManufacturer" th:value="${labdata.profileData.sequencerManufacturer}" disabled/>
                         </label>
                     </div>
 
                     <div>
-                        <label class="optional">
+                        <label class="disabled">
                             Kit - Name/Version
                             <input type="text" name="kitName" th:value="${labdata.profileData.kitName}" disabled/>
                         </label>
 
-                        <label class="optional">
+                        <label class="disabled">
                             Hersteller
                             <input type="text" name="kitManufacturer" th:value="${labdata.profileData.kitManufacturer}" disabled/>
                         </label>
                     </div>
 
                     <div>
-                        <label class="optional">
+                        <label class="disabled">
                             Enrichment Kit - Name und Version
                             <input type="text" name="enrichmentKit" th:value="${labdata.profileData.enrichmentKit}" disabled />
                         </label>
 
-                        <label class="optional">
+                        <label class="disabled">
                             Hersteller
                             <select name="enrichmentKitManufacturer" disabled>
                                 <option th:selected="${labdata.profileData.enrichmentKitManufacturer != null and labdata.profileData.enrichmentKitManufacturer.value == 'Illumina'}" value="ILLUMINA">Illumina</option>
@@ -250,7 +254,7 @@
                             </select>
                         </label>
                     </div>
-                </th:block>
+                </div>
 
                 <div>
                     <label>

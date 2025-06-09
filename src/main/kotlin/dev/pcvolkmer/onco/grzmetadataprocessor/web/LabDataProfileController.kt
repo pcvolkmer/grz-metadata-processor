@@ -2,6 +2,7 @@ package dev.pcvolkmer.onco.grzmetadataprocessor.web
 
 import dev.pcvolkmer.onco.grzmetadataprocessor.data.LabDataProfile
 import dev.pcvolkmer.onco.grzmetadataprocessor.data.LabDataProfileRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
@@ -14,7 +15,6 @@ class LabDataProfileController(
 
     @GetMapping
     fun getAllLabDataProfiles(model: Model): String {
-        println(repository.findAll().sortedByDescending { it.id })
         model.addAttribute("labdataprofiles", repository.findAll().sortedByDescending { it.id })
         return "labdataprofiles"
     }
@@ -26,15 +26,21 @@ class LabDataProfileController(
         return "labdataprofiles"
     }
 
+    @GetMapping(path = ["{labdataProfileId}"])
+    fun getLabDataProfile(@PathVariable labdataProfileId: Long, model: Model): String {
+        model.addAttribute("profile", repository.findByIdOrNull(labdataProfileId))
+        return "labdataprofile"
+    }
+
     @PutMapping(path = ["{labdataProfileId}"])
-    fun putLabData(@PathVariable labdataProfileId: Long, labDataProfile: LabDataProfile, model: Model): String {
+    fun putLabDataProfile(@PathVariable labdataProfileId: Long, labDataProfile: LabDataProfile, model: Model): String {
         repository.save(labDataProfile)
         model.addAttribute("labdataprofiles", repository.findAll().sortedByDescending { it.id })
         return "labdataprofiles"
     }
 
     @DeleteMapping(path = ["{labdataProfileId}"])
-    fun deleteLabData(@PathVariable labdataProfileId: Long, model: Model): String {
+    fun deleteLabDataProfile(@PathVariable labdataProfileId: Long, model: Model): String {
         repository.deleteById(labdataProfileId)
         model.addAttribute("labdataprofiles", repository.findAll().sortedByDescending { it.id })
         return "labdataprofiles"

@@ -108,6 +108,7 @@ enum class ReferenceGenome(val value: String) {
 }
 
 interface LabDataRepository : CrudRepository<LabData, Long> {
+    fun getById(id: Long): LabData?
     fun findByDonorId(donorId: Long): MutableList<LabData>
     fun countLabDataByDonorIdIsNull(): Long
     fun findByEinsendenummer(einsendenummer: String): LabData

@@ -9,7 +9,7 @@ aside {
 }
 
 aside > .title {
-    @apply m-2 text-2xl font-bold
+    @apply my-2 text-2xl font-bold
 }
 
 aside > nav {
@@ -17,11 +17,19 @@ aside > nav {
 }
 
 aside > nav ul {
-    @apply m-2
+    @apply my-2
 }
 
-aside > nav a:before {
+aside > nav ul.datamenu a:before {
     content: '🗎';
+    margin-right: 4px;
+    opacity: 0.8;
+    width: 1.2em;
+    text-align: center;
+}
+
+aside > nav ul.settingsmenu a:before {
+    content: '⚙';
     margin-right: 4px;
     opacity: 0.8;
     width: 1.2em;
@@ -90,6 +98,13 @@ label.optional {
 }
 label.optional input,
 label.optional select {
+    font-style: normal;
+    background: repeating-linear-gradient(135deg, var(--color-white), var(--color-white) 4px, transparent 4px, transparent 8px)
+}
+
+label.disabled input,
+label.disabled select {
+    @apply text-gray-600;
     font-style: normal;
     background: repeating-linear-gradient(135deg, var(--color-white), var(--color-white) 4px, transparent 4px, transparent 8px)
 }
