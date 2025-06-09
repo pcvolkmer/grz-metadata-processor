@@ -13,7 +13,7 @@
         <div>
             <div th:if="${labdataprofiles.isEmpty()}">
                 <h3>Probe</h3>
-                <form class="lab-data" th:hx-post="@{/labdataprofiles}">
+                <form class="lab-data" th:hx-post="@{/labdataprofiles}" hx-target="body">
                     <div>Keine Sequenzierprofile gefunden</div>
                     <button>Neues Sequenzierprofil hinzufügen</button>
                 </form>
