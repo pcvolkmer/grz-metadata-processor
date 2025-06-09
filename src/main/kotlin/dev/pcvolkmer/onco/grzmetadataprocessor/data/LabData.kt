@@ -1,6 +1,7 @@
 package dev.pcvolkmer.onco.grzmetadataprocessor.data
 
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.Transient
 import org.springframework.data.relational.core.mapping.Table
 import org.springframework.data.repository.CrudRepository
 
@@ -15,6 +16,7 @@ data class LabData(
     val sequenceType: SequenceType? = null,
     val sequenceSubtype: SequenceSubtype? = null,
     val fragmentationMethod: FragmentationMethod? = null,
+    val profile: Long? = null,
     val libraryType: LibraryType? = null,
     val libraryPrepKit: String = "",
     val libraryPrepKitManufacturer: String = "",
@@ -30,7 +32,10 @@ data class LabData(
     val bioinformaticsPipelineName: String = "",
     val bioinformaticsPipelineVersion: String = "",
     val referenceGenome: ReferenceGenome? = null,
-)
+) {
+    @Transient
+    var profileData: LabDataProfile? = null
+}
 
 enum class SampleConservation(val value: String) {
     FRESH_TISSUE("fresh-tissue"),

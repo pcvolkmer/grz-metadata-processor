@@ -1,6 +1,7 @@
 <div class="title">GRZ-Metadaten</div>
 
 <nav>
+    <b>Falldaten</b>
     <ul>
         <li>
             <a th:href="@{/}">
@@ -18,6 +19,14 @@
             <a th:href="@{/files/unused}">
                 <span>Ungenutzte Dateien</span>
                 <span th:if="${unusedFiles}" class="counter">[[ ${unusedFiles} ]]</span>
+            </a>
+        </li>
+    </ul>
+    <b>Profile</b>
+    <ul>
+        <li>
+            <a th:href="@{/labdataprofiles}">
+                <span>Sequenzierprofile</span>
             </a>
         </li>
     </ul>
