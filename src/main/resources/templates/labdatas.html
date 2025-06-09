@@ -59,8 +59,8 @@
                     <label>
                         Sequenzierungsart
                         <select name="sequenceType">
-                            <option th:selected="${labdata.sequenceType != null and labdata.sequenceType.value == 'DNA'}" value="DNA">dna</option>
-                            <option th:selected="${labdata.sequenceType != null and labdata.sequenceType.value == 'RNA'}" value="RNA">rna</option>
+                            <option th:selected="${labdata.sequenceType != null and labdata.sequenceType.value == 'dna'}" value="DNA">dna</option>
+                            <option th:selected="${labdata.sequenceType != null and labdata.sequenceType.value == 'rna'}" value="RNA">rna</option>
                         </select>
                     </label>
                 </div>
@@ -69,10 +69,10 @@
                     <label>
                         Sequenzierungsunterart
                         <select name="sequenceSubtype">
-                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'GERMLINE'}" value="GERMLINE">germline</option>
-                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'SOMATIC'}" value="SOMATIC">somatic</option>
-                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'OTHER'}" value="OTHER">other</option>
-                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'germline'}" value="GERMLINE">germline</option>
+                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'somatic'}" value="SOMATIC">somatic</option>
+                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'other'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.sequenceSubtype != null and labdata.sequenceSubtype.value == 'unknown'}" value="UNKNOWN">unknown</option>
                         </select>
                     </label>
                 </div>
@@ -81,29 +81,40 @@
                     <label>
                         Fragmentierungsart
                         <select name="fragmentationMethod">
-                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'SONICATION'}" value="SONICATION">sonication</option>
-                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'ENZYMATIC'}" value="ENZYMATIC">enzymatic</option>
-                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'NONE'}" value="NONE">none</option>
-                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'OTHER'}" value="OTHER">other</option>
-                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'sonication'}" value="SONICATION">sonication</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'enzymatic'}" value="ENZYMATIC">enzymatic</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'none'}" value="NONE">none</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'other'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.fragmentationMethod != null and labdata.fragmentationMethod.value == 'unknown'}" value="UNKNOWN">unknown</option>
                         </select>
                     </label>
                 </div>
 
                 <div>
+                    <label class="optional">
+                        Sequenzierprofil (Optionale Angabe)
+                        <select name="profile">
+                            <option value="">Kein Sequenzierprofil</option>
+                            <option th:each="labdataprofile : ${labdataprofiles}" th:selected="${labdataprofile.id == labdata.profile}" th:value="${labdataprofile.id}" th:text="${labdataprofile.profileName}"></option>
+                        </select>
+                    </label>
+                </div>
+
+                <th:block th:if="${labdata.profileData == null}">
+                <div>
                     <label>
                         Library Type
                         <select name="libraryType">
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'PANEL'}" value="PANEL">panel</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'PANEL_LR'}" value="PANEL_LR">panel_lr</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WES'}" value="WES">wes</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WES_LR'}" value="WES_LR">wes_lr</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WGS'}" value="WGS">wgs</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WGS_LR'}" value="WGS_LR">wgs_lr</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WXS'}" value="WXS">wxs</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'WXS_LR'}" value="WXS_LR">wxs_lr</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'OTHER'}" value="OTHER">other</option>
-                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'panel'}" value="PANEL">panel</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'panel_lr'}" value="PANEL_LR">panel_lr</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'wes'}" value="WES">wes</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'wes_lr'}" value="WES_LR">wes_lr</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'wgs'}" value="WGS">wgs</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'wgs_lr'}" value="WGS_LR">wgs_lr</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'wxs'}" value="WXS">wxs</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'wxs_lr'}" value="WXS_LR">wxs_lr</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'other'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.libraryType != null and labdata.libraryType.value == 'unknown'}" value="UNKNOWN">unknown</option>
                         </select>
                     </label>
                 </div>
@@ -153,25 +164,102 @@
                     <label>
                         Hersteller
                         <select name="enrichmentKitManufacturer">
-                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'ILLUMINA'}" value="ILLUMINA">Illumina</option>
-                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'AGILENT'}" value="AGILENT">Agilent</option>
-                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'TIST'}" value="TIST">Twist</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'Illumina'}" value="ILLUMINA">Illumina</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'Agilent'}" value="AGILENT">Agilent</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'Twist'}" value="TIST">Twist</option>
                             <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'NEB'}" value="NEB">NEB</option>
-                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'OTHER'}" value="OTHER">other</option>
-                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
-                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'NONE'}" value="NONE">none</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'other'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'unknown'}" value="UNKNOWN">unknown</option>
+                            <option th:selected="${labdata.enrichmentKitManufacturer != null and labdata.enrichmentKitManufacturer.value == 'none'}" value="NONE">none</option>
                         </select>
                     </label>
                 </div>
+                </th:block>
+
+                <th:block th:if="${labdata.profileData != null}">
+                    <div>
+                        <label class="optional">
+                            Library Type
+                            <select name="libraryType" disabled>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'panel'}" value="PANEL">panel</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'panel_lr'}" value="PANEL_LR">panel_lr</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'wes'}" value="WES">wes</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'wes_lr'}" value="WES_LR">wes_lr</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'wgs'}" value="WGS">wgs</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'wgs_lr'}" value="WGS_LR">wgs_lr</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'wxs'}" value="WXS">wxs</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'wxs_lr'}" value="WXS_LR">wxs_lr</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'other'}" value="OTHER">other</option>
+                                <option th:selected="${labdata.profileData.libraryType != null and labdata.profileData.libraryType.value == 'unknown'}" value="UNKNOWN">unknown</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="optional">
+                            Preparation Kit - Name
+                            <input type="text" name="libraryPrepKit" th:value="${labdata.profileData.libraryPrepKit}" disabled/>
+                        </label>
+
+                        <label class="optional">
+                            Hersteller
+                            <input type="text" name="libraryPrepKitManufacturer" th:value="${labdata.profileData.libraryPrepKitManufacturer}" disabled/>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="optional">
+                            Sequencer - Modell
+                            <input type="text" name="sequencerModel" th:value="${labdata.profileData.sequencerModel}" disabled/>
+                        </label>
+
+                        <label class="optional">
+                            Hersteller
+                            <input type="text" name="sequencerManufacturer" th:value="${labdata.profileData.sequencerManufacturer}" disabled/>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="optional">
+                            Kit - Name/Version
+                            <input type="text" name="kitName" th:value="${labdata.profileData.kitName}" disabled/>
+                        </label>
+
+                        <label class="optional">
+                            Hersteller
+                            <input type="text" name="kitManufacturer" th:value="${labdata.profileData.kitManufacturer}" disabled/>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="optional">
+                            Enrichment Kit - Name und Version
+                            <input type="text" name="enrichmentKit" th:value="${labdata.profileData.enrichmentKit}" disabled />
+                        </label>
+
+                        <label class="optional">
+                            Hersteller
+                            <select name="enrichmentKitManufacturer" disabled>
+                                <option th:selected="${labdata.profileData.enrichmentKitManufacturer != null and labdata.profileData.enrichmentKitManufacturer.value == 'Illumina'}" value="ILLUMINA">Illumina</option>
+                                <option th:selected="${labdata.profileData.enrichmentKitManufacturer != null and labdata.profileData.enrichmentKitManufacturer.value == 'Agilent'}" value="AGILENT">Agilent</option>
+                                <option th:selected="${labdata.profileData.enrichmentKitManufacturer != null and labdata.profileData.enrichmentKitManufacturer.value == 'Twist'}" value="TIST">Twist</option>
+                                <option th:selected="${labdata.profileData.enrichmentKitManufacturer != null and labdata.profileData.enrichmentKitManufacturer.value == 'NEB'}" value="NEB">NEB</option>
+                                <option th:selected="${labdata.profileData.enrichmentKitManufacturer != null and labdata.profileData.enrichmentKitManufacturer.value == 'other'}" value="OTHER">other</option>
+                                <option th:selected="${labdata.profileData.enrichmentKitManufacturer != null and labdata.profileData.enrichmentKitManufacturer.value == 'unknown'}" value="UNKNOWN">unknown</option>
+                                <option th:selected="${labdata.profileData.enrichmentKitManufacturer != null and labdata.profileData.enrichmentKitManufacturer.value == 'none'}" value="NONE">none</option>
+                            </select>
+                        </label>
+                    </div>
+                </th:block>
 
                 <div>
                     <label>
                         Sequencing Layout
                         <select name="sequencingLayout">
-                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'SINGLE_END'}" value="SINGLE_END">single-end</option>
-                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'PAIRED_END'}" value="PAIRED_END">paired-end</option>
-                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'REVERSE'}" value="REVERSE">reverse</option>
-                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'OTHER'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'single-end'}" value="SINGLE_END">single-end</option>
+                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'paired-end'}" value="PAIRED_END">paired-end</option>
+                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'reverse'}" value="REVERSE">reverse</option>
+                            <option th:selected="${labdata.sequencingLayout != null and labdata.sequencingLayout.value == 'other'}" value="OTHER">other</option>
                         </select>
                     </label>
                 </div>
@@ -185,10 +273,10 @@
                     <label>
                         Methode
                         <select name="tumorCellCountMethod">
-                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'PATHOLOGY'}" value="PATHOLOGY">pathology</option>
-                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'BIOINFORMATICS'}" value="BIOINFORMATICS">bioinformatics</option>
-                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'OTHER'}" value="OTHER">other</option>
-                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'UNKNOWN'}" value="UNKNOWN">unknown</option>
+                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'pathology'}" value="PATHOLOGY">pathology</option>
+                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'bioinformatics'}" value="BIOINFORMATICS">bioinformatics</option>
+                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'other'}" value="OTHER">other</option>
+                            <option th:selected="${labdata.tumorCellCountMethod != null and labdata.tumorCellCountMethod.value == 'unknown'}" value="UNKNOWN">unknown</option>
                         </select>
                     </label>
                 </div>
@@ -209,8 +297,8 @@
                     <label>
                         Referenz-Genom
                         <select name="referenceGenome">
-                            <option th:selected="${labdata.referenceGenome != null and labdata.referenceGenome.value == 'GRCH37'}" value="GRCH37">GRCh37</option>
-                            <option th:selected="${labdata.referenceGenome != null and labdata.referenceGenome.value == 'GRCH38'}" value="GRCH38">GRCh38</option>
+                            <option th:selected="${labdata.referenceGenome != null and labdata.referenceGenome.value == 'GRCh37'}" value="GRCH37">GRCh37</option>
+                            <option th:selected="${labdata.referenceGenome != null and labdata.referenceGenome.value == 'GRCh38'}" value="GRCH38">GRCh38</option>
                         </select>
                     </label>
                 </div>
