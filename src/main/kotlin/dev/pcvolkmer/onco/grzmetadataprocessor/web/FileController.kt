@@ -47,6 +47,7 @@ class FileController(
     @PutMapping(path = ["/files/unused/{fileId}"])
     fun putUnusedFile(@PathVariable fileId: Long, file: File, model: Model): String {
         fileRepository.save(file)
+        model.addAttribute("labDatas", labDataRepository.findAll().filterNot { it.einsendenummer.isBlank() })
         model.addAttribute("files", fileRepository.findByLabDataIdIsNull())
         return "unusedfiles"
     }
