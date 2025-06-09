@@ -3,8 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Fehler</title>
+    <link th:href="@{/main.css}" rel="stylesheet" />
 </head>
 <body>
-    <a th:href="@{/}">Zurück</a>
+
+<aside th:hx-get="@{/cases/menu}" hx-trigger="load"></aside>
+
+<main>
+    <div class="error">
+        <h1>
+            Fehler
+        </h1>
+        <p>
+            Es konnte nichts gefunden werden
+        </p>
+    </div>
+</main>
+
+<script th:src="@{/main.js}"></script>
 </body>
 </html>

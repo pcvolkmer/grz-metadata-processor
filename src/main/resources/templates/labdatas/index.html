@@ -8,7 +8,7 @@
 
     <div th:id="'donors_' + ${donorId} + '_labdatas'">
         <div th:if="${labdatas.isEmpty()}">
-            <h3>Probe</h3>
+            <h3 class="head">Probe</h3>
             <form class="lab-data" th:hx-post="@{/donors/{donorId}/labdatas(donorId=${donorId})}" th:hx-target="'#donors_' + ${donorId} + '_labdatas'">
                 <div>Keine Probe gefunden</div>
                 <button>Neuen Probe hinzufügen</button>

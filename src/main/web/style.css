@@ -60,7 +60,7 @@ main {
     @apply mx-auto pl-84 px-10 py-1 w-full;
 }
 
-h1, h2, h3, h4 {
+h1.head, h2.head, h3.head, h4.head {
     @apply mt-5 text-white py-1 px-3 rounded-t-sm
 }
 
@@ -81,23 +81,35 @@ details[open] > summary {
 }
 
 summary.h1,
-h1 {
+h1.head {
     @apply text-3xl font-bold bg-blue-900
 }
 
 summary.h2,
-h2 {
+h2.head {
     @apply text-2xl font-bold bg-green-900
 }
 
 summary.h3,
-h3 {
+h3.head {
     @apply text-xl font-bold bg-yellow-900
 }
 
 summary.h4,
-h4 {
+h4.head {
     @apply font-bold bg-red-900
+}
+
+div.error {
+    @apply mt-5
+}
+
+div.error h1 {
+    @apply font-bold text-3xl p-2 bg-red-900 text-white rounded-t-sm
+}
+
+div.error p {
+    @apply p-2 bg-red-200 rounded-b-sm
 }
 
 form {

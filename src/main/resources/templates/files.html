@@ -8,7 +8,7 @@
 
     <div th:id="'labdatas_' + ${labDataId} + '_files'">
         <div th:if="${files.isEmpty()}">
-            <h4>Datei</h4>
+            <h4 class="head">Datei</h4>
             <form class="file" th:hx-post="@{/labdatas/{labDataId}/files(labDataId=${labDataId})}" th:hx-target="'#labdatas_' + ${labDataId} + '_files'">
                 <div>Keine Datei gefunden</div>
                 <button>Neuen Datei hinzufügen</button>
