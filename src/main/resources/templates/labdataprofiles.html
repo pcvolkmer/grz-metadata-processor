@@ -19,11 +19,11 @@
                 </form>
             </div>
 
-            <div th:each="profile : ${labdataprofiles}">
-                <h3>
+            <details th:each="profile : ${labdataprofiles}" open>
+                <summary class="h3">
                     Sequenzierprofil
-                    <tt>"[[ ${ profile.profileName } ]]"</tt>
-                </h3>
+                    <code>[[ ${ profile.profileName } ]]</code>
+                </summary>
 
                 <form class="lab-data">
                     <input type="hidden" name="id" th:value="${profile.id}" />
@@ -116,7 +116,7 @@
                     </div>
 
                 </form>
-            </div>
+            </details>
 
         </div>
     </main>

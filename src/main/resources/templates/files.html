@@ -15,9 +15,12 @@
             </form>
         </div>
 
-        <div th:each="file : ${files}">
+        <details th:each="file : ${files}" open>
             <!-- File -->
-            <h4>Datei</h4>
+            <summary class="h4">
+                Datei
+                <code>[[ ${file.filePath} ]]</code>
+            </summary>
             <form class="file">
                 <input type="hidden" name="id" th:value="${file.id}" />
 
@@ -61,7 +64,7 @@
                 </div>
             </form>
 
-        </div>
+        </details>
 
     </div>
 

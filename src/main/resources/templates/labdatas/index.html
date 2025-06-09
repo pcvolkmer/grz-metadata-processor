@@ -15,8 +15,11 @@
             </form>
         </div>
 
-        <div th:each="labdata : ${labdatas}">
-            <h3>Probe/Sequenzierung</h3>
+        <details th:each="labdata : ${labdatas}" open>
+            <summary class="h3">
+                Probe/Sequenzierung
+                <code>[[ ${labdata.einsendenummer} ]]</code>
+            </summary>
 
             <form class="lab-data">
                 <input type="hidden" name="id" th:value="${labdata.id}" />
@@ -316,7 +319,7 @@
                 <div th:hx-get="@{/labdatas/{labdataId}/files(labdataId=${labdata.id})}" hx-trigger="load"></div>
 
             </form>
-        </div>
+        </details>
 
     </div>
 

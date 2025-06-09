@@ -64,18 +64,38 @@ h1, h2, h3, h4 {
     @apply mt-5 text-white py-1 px-3 rounded-t-sm
 }
 
+summary.h1,
+summary.h2,
+summary.h3,
+summary.h4 {
+    @apply mt-5 text-white py-1 px-3 rounded-sm
+}
+
+h1 > code,
+summary > code {
+    @apply font-light m-6
+}
+
+details[open] > summary {
+    @apply rounded-b-none
+}
+
+summary.h1,
 h1 {
     @apply text-3xl font-bold bg-blue-900
 }
 
+summary.h2,
 h2 {
     @apply text-2xl font-bold bg-green-900
 }
 
+summary.h3,
 h3 {
     @apply text-xl font-bold bg-yellow-900
 }
 
+summary.h4,
 h4 {
     @apply font-bold bg-red-900
 }

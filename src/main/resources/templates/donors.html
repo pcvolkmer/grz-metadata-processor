@@ -16,8 +16,11 @@
         </div>
 
         <!-- Probenspender -->
-        <div th:each="donor : ${donors}">
-            <h2>Probenspender</h2>
+        <details th:each="donor : ${donors}" open>
+            <summary class="h2">
+                Probenspender
+                <code>[[ ${donor.donorPseudonym} ]]</code>
+            </summary>
 
             <form class="donor" th:id="'cases_' + ${caseId} + '_donors'">
                 <input type="hidden" name="id" th:value="${donor.id}">
@@ -65,7 +68,7 @@
                 <div th:hx-get="@{/donors/{donorId}/labdatas(donorId=${donor.id})}" hx-trigger="load"></div>
 
             </form>
-        </div>
+        </details>
     </div>
 
 </body>

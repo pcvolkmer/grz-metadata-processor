@@ -7,12 +7,12 @@
 <body>
     <div>
         <h1>
-            [[ ${cases.size()} ]] Fälle
+            Alle Fälle
         </h1>
         <form class="case">
             <ul class="case-list">
                 <li th:each="case : ${cases}">
-                    <a th:href="@{/cases/{caseId}(caseId=${case.id})}">#[[ ${case.id} ]] - Fallnummer: [[ ${case.localCaseId} ]]</a>
+                    <a th:href="@{/cases/{caseId}(caseId=${case.id})}">Fallnummer: [[ ${case.localCaseId} ]]</a>
                     <button class="delete left" th:hx-delete="@{/cases/{caseId}(caseId=${case.id})}" hx-target="#cases">Eintrag löschen</button>
                 </li>
             </ul>
