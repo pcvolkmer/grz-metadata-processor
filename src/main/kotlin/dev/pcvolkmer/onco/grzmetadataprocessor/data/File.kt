@@ -17,8 +17,8 @@ data class File(
     val labDataId: Long?,
     val filePath: String? = null,
     val fileType: FileType? = null,
-    var fileChecksum: String? = null,
-    var fileSizeInBytes: Long? = null,
+    var fileChecksum: String = "",
+    var fileSizeInBytes: Long = 0,
 ) {
     fun calcFileChecksum(): String {
         if (filePath == null) {
@@ -26,7 +26,6 @@ data class File(
         }
         val path = Path.of(filePath)
         val messageDigest = MessageDigest.getInstance("SHA-256")
-
         val digestInputStream = DigestInputStream(path.inputStream(), messageDigest)
         digestInputStream.readAllBytes()
         return HexUtils.toHexString(messageDigest.digest())
@@ -50,4 +49,5 @@ enum class FileType(val value: String) {
 interface FileRepository : CrudRepository<File, Long> {
     fun findByLabDataId(labDataId: Long): MutableList<File>
     fun findByLabDataIdIsNull(): List<File>
+    fun findByFilePath(filePath: String): Optional<File>
 }

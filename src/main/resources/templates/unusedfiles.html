@@ -40,7 +40,7 @@
                         <label class="optional">
                             Zugehörige Probe (Einsendenummer)
                             <select name="labDataId">
-                                <option>Keine Zuordnung</option>
+                                <option value="">Keine Zuordnung</option>
                                 <option th:each="labData : ${labDatas}" th:selected="${file.labDataId == labData.id}" th:value="${labData.id}" th:text="${labData.einsendenummer}"></option>
                             </select>
                         </label>
@@ -50,10 +50,10 @@
                         <label>
                             Dateityp
                             <select name="fileType">
-                                <option th:selected="${file.fileType.value == 'bam'}">BAM</option>
-                                <option th:selected="${file.fileType.value == 'vcf'}">Vcf</option>
-                                <option th:selected="${file.fileType.value == 'bed'}">BED</option>
-                                <option th:selected="${file.fileType.value == 'fastq'}">FASTQ</option>
+                                <option th:selected="${file.fileType != null and file.fileType.value == 'bam'}" value="BAM">BAM</option>
+                                <option th:selected="${file.fileType != null and file.fileType.value == 'vcf'}" value="VCF">Vcf</option>
+                                <option th:selected="${file.fileType != null and file.fileType.value == 'bed'}" value="BED">BED</option>
+                                <option th:selected="${file.fileType != null and file.fileType.value == 'fastq'}" value="FASTQ" >FASTQ</option>
                             </select>
                         </label>
                     </div>
