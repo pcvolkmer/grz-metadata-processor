@@ -54,7 +54,11 @@ class FileController(
 
     @DeleteMapping(path = ["/labdatas/{labDataId}/files/{fileId}"])
     fun deleteFile(@PathVariable fileId: Long, @PathVariable labDataId: Long, model: Model): String {
-        fileRepository.deleteById(fileId)
+        val file = fileRepository.findById(fileId)
+        file.ifPresent {
+            it.apply { this.labDataId = null }
+            fileRepository.save(it)
+        }
         model.addAttribute("fileId", fileId)
         model.addAttribute("files", fileRepository.findByLabDataId(labDataId))
         return "files"

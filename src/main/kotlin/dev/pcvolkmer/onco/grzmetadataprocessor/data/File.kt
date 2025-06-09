@@ -14,7 +14,7 @@ import kotlin.io.path.inputStream
 @Table("tbl_file")
 data class File(
     @Id val id: Long? = null,
-    val labDataId: Long?,
+    var labDataId: Long?,
     val filePath: String? = null,
     val fileType: FileType? = null,
     var fileChecksum: String = "",
