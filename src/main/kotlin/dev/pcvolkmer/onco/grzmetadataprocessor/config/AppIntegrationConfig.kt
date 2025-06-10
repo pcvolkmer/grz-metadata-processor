@@ -4,6 +4,7 @@ import dev.pcvolkmer.onco.grzmetadataprocessor.data.File
 import dev.pcvolkmer.onco.grzmetadataprocessor.data.FileRepository
 import dev.pcvolkmer.onco.grzmetadataprocessor.data.FileType
 import org.apache.tomcat.util.buf.HexUtils
+import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.EnableConfigurationProperties
@@ -18,13 +19,11 @@ import java.security.DigestInputStream
 import java.security.MessageDigest
 import java.time.Duration
 import kotlin.io.path.*
-import kotlin.time.Duration.Companion.minutes
-import kotlin.time.toJavaDuration
 
 @ConfigurationProperties(AppSourceFsProperties.NAME)
 data class AppSourceFsProperties(
     val directory: Path? = null,
-    val pollDelay: Duration = 1.minutes.toJavaDuration(),
+    val pollDelay: Duration? = null,
 ) {
     companion object {
         const val NAME = "app.source.fs"
@@ -34,6 +33,8 @@ data class AppSourceFsProperties(
 @Configuration
 @EnableConfigurationProperties(AppSourceFsProperties::class)
 class AppIntegrationConfig {
+
+    private val logger = LoggerFactory.getLogger(AppSourceFsProperties::class.java)
 
     @Bean
     @ConditionalOnProperty(
@@ -50,7 +51,12 @@ class AppIntegrationConfig {
         return IntegrationFlow
             .from(
                 Files.inboundAdapter(sourceDirectory!!.toFile()).useWatchService(true)
-            )
+            ) {
+                if (applicationFsProperties.pollDelay != null) {
+                    logger.info("Polling new file each ${applicationFsProperties.pollDelay.seconds} seconds...")
+                    it.poller(Pollers.fixedDelay(applicationFsProperties.pollDelay))
+                }
+            }
             .log()
             .handle { msg ->
                 val path = Path(msg.payload.toString())
